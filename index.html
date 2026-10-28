@@ -72,23 +72,23 @@ h2{font-size:13px;font-weight:600;color:var(--muted);margin:6px 2px 0;display:fl
 .hero .badge-code{background:rgba(255,255,255,.12)}
 .code{font:700 17px var(--f-display);letter-spacing:.04em}
 .hero .sub{font-size:12px;color:var(--hero-muted)}
-.amount{font:600 34px/1.1 var(--f-display);text-align:left;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-.expr{font-size:12px;color:var(--hero-muted);text-align:left;min-height:18px}
-.chips{display:flex;gap:8px;align-items:center;padding-top:10px;border-top:1px solid rgba(255,255,255,.14)}
+.cur-pick{background:rgba(255,255,255,.1);border-radius:999px;padding:6px 14px 6px 8px}
+.cur-pick .chev{width:14px;height:14px;opacity:.7}
+.hero-label{font-size:12px;color:var(--hero-muted)}
+.amount-box{display:flex;align-items:center;gap:8px;border-bottom:2px solid rgba(255,255,255,.18);padding-bottom:6px;transition:border-color .2s}
+.amount-box:focus-within{border-color:var(--hero-fg)}
+.amount{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--hero-fg);font:600 44px/1.15 var(--f-display);
+  direction:ltr;text-align:left;padding:0;caret-color:#E3B341;font-variant-numeric:tabular-nums}
+.amount::placeholder{color:rgba(255,255,255,.3)}
+.clear{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;flex-shrink:0}
+.clear svg{width:14px;height:14px}
+.sym{font:600 22px var(--f-display);color:var(--hero-muted);flex-shrink:0}
+.chips{display:flex;gap:8px;align-items:center}
 .chip-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
 .chip-scroll::-webkit-scrollbar{display:none}
 .chip{background:rgba(255,255,255,.12);border-radius:10px;padding:4px 12px;font-weight:600;font-size:13px;flex-shrink:0}
 .chip.solid{background:var(--hero-fg);color:var(--hero)}
 
-/* لوحة المفاتيح */
-.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;direction:ltr}
-.pad[hidden]{display:none}
-.key{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 0;font:600 19px var(--f-display);transition:transform .08s}
-.key:active{transform:scale(.94)}
-.key.op{color:var(--accent);background:var(--surface-2)}
-.key.clr{color:var(--down)}
-.key.eq{background:var(--accent);color:var(--accent-ink);border-color:transparent;grid-row:span 2}
-.key.zero{grid-column:span 2}
 
 /* القوائم */
 .list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
@@ -179,43 +179,33 @@ nav.tabs button[aria-current="page"]{color:var(--accent)}
     <section id="tab-convert">
       <div class="hero">
         <div class="hero-row">
+          <span class="hero-label">أدخل المبلغ</span>
           <button class="cur-pick" id="basePick" aria-label="تغيير العملة الأساسية">
             <span id="baseFlag"></span>
-            <span><span class="code" id="baseCode">USD</span><br><span class="sub" id="baseName"></span></span>
+            <span style="text-align:right"><span class="code" id="baseCode">USD</span> <span class="sub" id="baseName"></span></span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
-          <div style="flex:1;min-width:0">
-            <div class="expr num" id="expr"></div>
-            <div class="amount num" id="amount">100</div>
-          </div>
         </div>
+        <label class="amount-box" for="amount">
+          <input class="amount" id="amount" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" value="100" aria-label="المبلغ">
+          <span class="sym" id="baseSym"></span>
+          <button class="clear" id="clearAmt" type="button" aria-label="مسح المبلغ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </label>
         <div class="chips"><div class="chip-scroll">
           <button class="chip num" data-q="1">1</button>
           <button class="chip num" data-q="10">10</button>
+          <button class="chip num" data-q="50">50</button>
           <button class="chip num" data-q="100">100</button>
           <button class="chip num" data-q="500">500</button>
-          <button class="chip num" data-q="1000">1,000</button></div>
-          <button class="chip solid" id="padToggle">إخفاء</button>
+          <button class="chip num" data-q="1000">1,000</button>
+          <button class="chip num" data-q="5000">5,000</button></div>
         </div>
-      </div>
-
-      <div class="pad" id="pad">
-        <button class="key clr" data-k="C">C</button>
-        <button class="key op" data-k="B" aria-label="حذف">⌫</button>
-        <button class="key op" data-k="/">÷</button>
-        <button class="key op" data-k="*">×</button>
-        <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
-        <button class="key op" data-k="-">−</button>
-        <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
-        <button class="key op" data-k="+">+</button>
-        <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
-        <button class="key eq" data-k="=">=</button>
-        <button class="key zero" data-k="0">0</button><button class="key" data-k=".">.</button>
       </div>
 
       <h2><span>التحويل إلى</span>
         <span style="display:flex;gap:14px"><button class="link" id="shareBtn">مشاركة</button><button class="link" id="addBtn">+ إضافة عملة</button></span></h2>
       <div class="list" id="convList"></div>
-      <p class="note">اضغط على المبلغ لنسخه، وعلى العلم لجعل العملة أساسية.</p>
+      <p class="note">اضغط على أي مبلغ لنسخه، وعلى العلم لجعل العملة أساسية.</p>
     </section>
 
     <!-- الأسعار -->
@@ -373,10 +363,9 @@ const store={get(k,d){try{const v=localStorage.getItem('nabd2_'+k);return v==nul
 
 const S={
   base:store.get('base','USD'),
-  expr:'100', amount:100, fresh:true,
+  expr:'100', amount:100,
   pinned:store.get('pinned',['EUR','SAR','AED','EGP','TRY','LBP','XAU']),
   favs:store.get('favs',['EUR','SAR','AED']),
-  padOpen:store.get('pad',true),
   rates:store.get('rates',null)||{date:SNAP_DATE,r:SNAP,prev:SNAP_PREV},
   live:false, filter:'all',
   chFrom:store.get('chFrom','USD'), chTo:store.get('chTo','SAR'), chRange:7,
@@ -458,31 +447,16 @@ async function copy(text){
   catch(_){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('تم النسخ: '+text)}catch(e){}ta.remove()}
 }
 
-// ===== حاسبة آمنة (بدون eval) =====
-function evaluate(expr){
-  const tk=expr.match(/\d*\.?\d+|\d+\.|[+\-*/]/g); if(!tk) return 0;
-  let i=0;
-  const num=()=>{let t=tk[i++]; if(t==='-') return -num(); if(t==='+') return num(); const v=parseFloat(t); if(isNaN(v)) throw 0; return v};
-  const term=()=>{let v=num(); while(tk[i]==='*'||tk[i]==='/'){const o=tk[i++]; const r=num(); v=o==='*'?v*r:v/r} return v};
-  let v=term(); while(tk[i]==='+'||tk[i]==='-'){const o=tk[i++]; const r=term(); v=o==='+'?v+r:v-r}
-  return v;
+// ===== إدخال المبلغ من لوحة مفاتيح الهاتف =====
+function cleanAmount(v){
+  v=v.replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+     .replace(/[٫,]/g,'.').replace(/[^0-9.]/g,'');
+  const i=v.indexOf('.'); if(i>=0) v=v.slice(0,i+1)+v.slice(i+1).replace(/\./g,'');
+  return v.slice(0,15);
 }
-function press(k){
-  const ops='+-*/'; let e=S.expr;
-  if(S.fresh && /[0-9.]/.test(k)){e='0';$('expr').textContent=''}
-  if(k!=='=') S.fresh=false;
-  if(k==='C'){e='0';$('expr').textContent=''}
-  else if(k==='B'){e=e.length>1?e.slice(0,-1):'0'}
-  else if(k==='='){
-    try{const v=evaluate(e.replace(/[+\-*/.]+$/,'')); if(isFinite(v)&&v>=0){ if(/[+\-*/]/.test(e.slice(1))) $('expr').textContent=pretty(e)+' ='; e=String(+v.toFixed(6)); S.fresh=true}}catch(_){toast('عملية غير صالحة')}
-  }else if(ops.includes(k)){ if(ops.includes(e.slice(-1))) e=e.slice(0,-1); e+=k }
-  else if(k==='.'){ const last=e.split(/[+\-*/]/).pop(); if(!last.includes('.')) e+= last===''?'0.':'.' }
-  else { const last=e.split(/[+\-*/]/).pop(); if(last==='0') e=e.slice(0,-1)+k; else if(e.length<18) e+=k }
-  S.expr=e;
-  try{const v=evaluate(e.replace(/[+\-*/.]+$/,'')); if(isFinite(v)&&v>=0){ S.amount=v; if(/[+\-*/]/.test(e.slice(1))) $('expr').textContent='= '+fmt(v) }}catch(_){}
-  renderAmount(); renderConv();
-}
-const pretty=e=>e.replace(/\*/g,'×').replace(/\//g,'÷').replace(/-/g,'−').replace(/(\d+)(\.\d*)?/g,(m,a,b)=>Number(a).toLocaleString('en-US')+(b||''));
+function setAmount(v){S.expr=v; S.amount=parseFloat(v)||0; const el=$('amount'); if(el.value!==v) el.value=v; $('clearAmt').hidden=!v; renderConv()}
+const SYM={USD:'$',EUR:'€',GBP:'£',JPY:'¥',CNY:'¥',TRY:'₺',INR:'₹',KRW:'₩',RUB:'₽',ILS:'₪',BTC:'₿'};
+const pretty=v=>fmt(parseFloat(v)||0);
 
 // ===== العرض =====
 function renderStatus(){
@@ -493,7 +467,8 @@ function renderAmount(){
   const m=META[S.base];
   $('baseFlag').outerHTML=`<span id="baseFlag">${flagHTML(S.base)}</span>`;
   $('baseCode').textContent=S.base; $('baseName').textContent=m.name;
-  $('amount').textContent=pretty(S.expr);
+  $('baseSym').textContent=SYM[S.base]||'';
+  if(document.activeElement!==$('amount')) $('amount').value=S.expr; $('clearAmt').hidden=!S.expr;
 }
 function renderConv(){
   const L=$('convList'); const rows=S.pinned.filter(c=>c!==S.base);
@@ -613,7 +588,7 @@ function renderSheet(){
 function setBase(c){
   if(c===S.base) return;
   S.pinned=S.pinned.filter(x=>x!==c); if(!S.pinned.includes(S.base)) S.pinned.unshift(S.base);
-  S.amount=conv(S.amount,S.base,c); S.expr=String(+S.amount.toFixed(2)); S.fresh=true; $('expr').textContent='';
+  S.amount=conv(S.amount,S.base,c); S.expr=S.amount?String(+S.amount.toFixed(S.amount<1?6:2)):''; $('amount').value=S.expr;
   S.base=c; store.set('base',c); store.set('pinned',S.pinned); renderAll();
 }
 
@@ -621,8 +596,7 @@ function setBase(c){
 document.addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b) return;
   const d=b.dataset;
-  if(d.k) press(d.k);
-  else if(d.q){S.expr=d.q;S.amount=+d.q;S.fresh=true;$('expr').textContent='';renderAmount();renderConv()}
+  if(d.q){$('amount').blur();setAmount(d.q)}
   else if(d.base) setBase(d.base);
   else if(d.copy) copy(d.copy);
   else if(d.rm){S.pinned=S.pinned.filter(c=>c!==d.rm);store.set('pinned',S.pinned);renderConv()}
@@ -648,8 +622,11 @@ $('sheetClose').onclick=()=>$('sheet').hidden=true;
 $('sheet').addEventListener('click',e=>{if(e.target.id==='sheet') $('sheet').hidden=true});
 $('sheetSearch').oninput=renderSheet;
 $('rateSearch').oninput=renderRates;
-$('padToggle').onclick=()=>{S.padOpen=!S.padOpen;store.set('pad',S.padOpen);applyPad()};
-function applyPad(){$('pad').hidden=!S.padOpen;$('padToggle').textContent=S.padOpen?'إخفاء':'الحاسبة'}
+$('amount').addEventListener('input',e=>setAmount(cleanAmount(e.target.value)));
+$('amount').addEventListener('focus',e=>setTimeout(()=>e.target.select(),0));
+$('amount').addEventListener('keydown',e=>{if(e.key==='Enter') e.target.blur()});
+$('clearAmt').onclick=e=>{e.preventDefault();setAmount('');$('amount').focus()};
+document.addEventListener('touchstart',e=>{if(document.activeElement===$('amount')&&!e.target.closest('.amount-box')) $('amount').blur()},{passive:true});
 $('refresh').onclick=()=>refresh(true);
 $('shareBtn').onclick=async()=>{
   const lines=[`${pretty(S.expr)} ${S.base} =`].concat(S.pinned.filter(c=>c!==S.base).map(c=>`${fmt(conv(S.amount,S.base,c))} ${c} (${META[c].name})`));
@@ -669,12 +646,6 @@ $('tFrom').onchange=e=>{S.tFrom=e.target.value;store.set('tFrom',S.tFrom);render
 $('tTo').onchange=e=>{S.tTo=e.target.value;store.set('tTo',S.tTo);renderTravel()};
 $('tSwap').onclick=()=>{[S.tFrom,S.tTo]=[S.tTo,S.tFrom];$('tFrom').value=S.tFrom;$('tTo').value=S.tTo;renderTravel()};
 $('fee').oninput=e=>{S.fee=+e.target.value;store.set('fee',S.fee);renderTravel()};
-// لوحة مفاتيح الكمبيوتر
-document.addEventListener('keydown',e=>{
-  if(e.target.matches('input,select')||$('tab-convert').hidden) return;
-  const m={Enter:'=',Backspace:'B',Escape:'C',Delete:'C',',':'.'}; const k=m[e.key]||e.key;
-  if(/^[0-9.+\-*/=CB]$/.test(k)){e.preventDefault();press(k)}
-});
 // المظهر
 function applyTheme(t){if(t) document.documentElement.setAttribute('data-theme',t); else document.documentElement.removeAttribute('data-theme')}
 $('theme').onclick=()=>{
@@ -689,7 +660,7 @@ applyTheme(store.get('theme',null));
 fillSelect($('chFrom'),S.chFrom); fillSelect($('chTo'),S.chTo);
 fillSelect($('goldCur'),S.goldCur,'XAU');
 fillSelect($('tFrom'),S.tFrom); fillSelect($('tTo'),S.tTo);
-$('fee').value=S.fee; applyPad(); renderAll(); refresh(false);
+$('fee').value=S.fee; renderAll(); refresh(false);
 if('serviceWorker' in navigator && location.protocol==='https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
