@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="نبض العملات">
+<meta name="theme-color" content="#F3F5F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1110" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAEuElEQVR42u2dy1HdQBBF9bre2iTCjjU5OAHS8JKFl6RBAgTjSIjAC6pcVGFgJM2n7+1z13xmus/cbo1G0uXm/m5D6H8KQoCAAwEHAg4EHAg4EHAg4EDAgYADAQdCwIGAAwEHAg4EHAg4EHAg4EDAgYADIeBAwIGAAwEHAg4EHAg4EHAg4EDAgRBwIOBA+3UtO/M/v360//Dt02vBEF3qvPZpFw2w4g9HRyAKguIJxwQmKlDiBscSLFwRMYFjOROWlMjDkRALG0QCMoqP0NA55IKuaCF6cEivRS1ExODoS0Zjqpb8U+CYTUaXxCQZBnB0yMfQTKQdWBU4DidgWvTzj9ATjgNxXxhxrdFqw7E31kkCLTrsTWgTTDfEe0eS9uI8qXN4nMRRn0UQ0yQWktA/0jlHe4yEdpNEJxUEMZWFpPKPgAz48Lllr3tCQm7koWUb6serltzq04ajCBlyfARkwId2z+F36l9iRpHfNlyfGmqZ11rzCFYYs8sIh/Rp0ApRCgoKxUWvrNR56wHnOSgoehELFhPzVYLDjIyfz7857ENN+ZSMRj6yxS2wjWmUfItItrkHtjGzoJy0kMnR41WTs1uNFguhIS19kfIZH3XPkNapKd96w8vDY/4YBrax6to1fxzoORbosG0ABwWlHhwVGo45lyHTIhk0HDPJaLSNJNGgrNBqAAetBnAYtxq2cBQ/3dPdNubE81qwG/230LvkbFBBuX16Xb6irtwjPYOIa0Gp1XN8kcWhCVbsQ2vB8W36j91Gt7xCqQVHe9Z38eFdUErAsTeFHVOubhvmcBzLdMtv2RcUNsEOtiAVCoo5HOdTePgveNiGLRy9FveB4+M2ZHjC0df235eYOgVls9whbczf2/rufpXrZBtuzrE3hX1zaUaG2KsmRyzuXhkVve+aAo7R913PdAMvD49yi37Ofewo1YF+AcEZPvwKigkcXcg4k2NXMuTh6EiGbonhxfgzyDjw84NIKvdi/FXPYowrFqs8Zloko8iWBs1EFTim7Vd+0YJUQEfvM17zd7I/7psNJSPPYxzXycXy5MxX3ePI4xMzWzelr0NWuPvF1yGVPIOGVMAVyfr87YAQ8tVB+9/UlERwnMG/8rXl/F3EUFxAHzkwICPhiwhCNFLvaYAMKzi6OOQbE0Ua1SV3pkJ6MXmQkfbNNsGH7/iybkbnqPatLrkoBZbL7JLCUbm45P+ybrDCmFFeOBoXhxMfjXNZ3pOFUM/lwYcKGXovxlfnQ4gMyTOkunzIjVzyM16KfLSPmc941eJDkYxt2y4393fS9pt8m1V6LqG+YZzZQtQpz+gcx7KeKrjSgxe4WtkbrzwW4kFGauc4nPKFsdYarTwcZyxhWtzzj9AWjpMlY2gC0g6sEBy9uoou+UgyDOAY23UuuaEjdP5NDA71e29aJyP14BBFRPHArCocQojonqMOTmZDhqdzZLYQgwcvTODIQ4nTwzhucCxExO8ZLU84ZlJi/NyeORyDQCnyIGchOIzPmwEH2tjnQMCBgAMBBwIOBBwIAQcCDgQcCDgQcCDgQMCBgAMBBwIOBBwIAQcCDgQcCDgQcCDgQMCBgAMBBwIOhIADAQcCDgQcCDhQGv0FnqpKnq0s1IUAAAAASUVORK5CYII=">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAEuElEQVR42u2dy1HdQBBF9bre2iTCjjU5OAHS8JKFl6RBAgTjSIjAC6pcVGFgJM2n7+1z13xmus/cbo1G0uXm/m5D6H8KQoCAAwEHAg4EHAg4EHAg4EDAgYADAQdCwIGAAwEHAg4EHAg4EHAg4EDAgYADIeBAwIGAAwEHAg4EHAg4EHAg4EDAgRBwIOBA+3UtO/M/v360//Dt02vBEF3qvPZpFw2w4g9HRyAKguIJxwQmKlDiBscSLFwRMYFjOROWlMjDkRALG0QCMoqP0NA55IKuaCF6cEivRS1ExODoS0Zjqpb8U+CYTUaXxCQZBnB0yMfQTKQdWBU4DidgWvTzj9ATjgNxXxhxrdFqw7E31kkCLTrsTWgTTDfEe0eS9uI8qXN4nMRRn0UQ0yQWktA/0jlHe4yEdpNEJxUEMZWFpPKPgAz48Lllr3tCQm7koWUb6serltzq04ajCBlyfARkwId2z+F36l9iRpHfNlyfGmqZ11rzCFYYs8sIh/Rp0ApRCgoKxUWvrNR56wHnOSgoehELFhPzVYLDjIyfz7857ENN+ZSMRj6yxS2wjWmUfItItrkHtjGzoJy0kMnR41WTs1uNFguhIS19kfIZH3XPkNapKd96w8vDY/4YBrax6to1fxzoORbosG0ABwWlHhwVGo45lyHTIhk0HDPJaLSNJNGgrNBqAAetBnAYtxq2cBQ/3dPdNubE81qwG/230LvkbFBBuX16Xb6irtwjPYOIa0Gp1XN8kcWhCVbsQ2vB8W36j91Gt7xCqQVHe9Z38eFdUErAsTeFHVOubhvmcBzLdMtv2RcUNsEOtiAVCoo5HOdTePgveNiGLRy9FveB4+M2ZHjC0df235eYOgVls9whbczf2/rufpXrZBtuzrE3hX1zaUaG2KsmRyzuXhkVve+aAo7R913PdAMvD49yi37Ofewo1YF+AcEZPvwKigkcXcg4k2NXMuTh6EiGbonhxfgzyDjw84NIKvdi/FXPYowrFqs8Zloko8iWBs1EFTim7Vd+0YJUQEfvM17zd7I/7psNJSPPYxzXycXy5MxX3ePI4xMzWzelr0NWuPvF1yGVPIOGVMAVyfr87YAQ8tVB+9/UlERwnMG/8rXl/F3EUFxAHzkwICPhiwhCNFLvaYAMKzi6OOQbE0Ua1SV3pkJ6MXmQkfbNNsGH7/iybkbnqPatLrkoBZbL7JLCUbm45P+ybrDCmFFeOBoXhxMfjXNZ3pOFUM/lwYcKGXovxlfnQ4gMyTOkunzIjVzyM16KfLSPmc941eJDkYxt2y4393fS9pt8m1V6LqG+YZzZQtQpz+gcx7KeKrjSgxe4WtkbrzwW4kFGauc4nPKFsdYarTwcZyxhWtzzj9AWjpMlY2gC0g6sEBy9uoou+UgyDOAY23UuuaEjdP5NDA71e29aJyP14BBFRPHArCocQojonqMOTmZDhqdzZLYQgwcvTODIQ4nTwzhucCxExO8ZLU84ZlJi/NyeORyDQCnyIGchOIzPmwEH2tjnQMCBgAMBBwIOBBwIAQcCDgQcCDgQcCDgQMCBgAMBBwIOBBwIAQcCDgQcCDgQcCDgQMCBgAMBBwIOhIADAQcCDgQcCDhQGv0FnqpKnq0s1IUAAAAASUVORK5CYII=">
+<title>نبض العملات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* تخطيط: عمود واحد بعرض الهاتف، شريط تبويب سفلي، الأرقام دائماً من اليسار لليمين */
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --surface-2:#E9EEEA; --line:#D9E0DB;
+  --fg:#14201C; --muted:#5E6E68; --accent:#0E7A5F; --accent-ink:#FFFFFF;
+  --hero:#0F3D33; --hero-fg:#F2FBF7; --hero-muted:#A9CFC2;
+  --gold:#A87412; --up:#0E8A5A; --down:#C2413A;
+  --f-body:'IBM Plex Sans Arabic',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;
+  --f-display:'Readex Pro','IBM Plex Sans Arabic',system-ui,sans-serif;
+  --r:18px; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C1110; --surface:#151C1A; --surface-2:#1F2825; --line:#29342F;
+  --fg:#E8F0EC; --muted:#8FA39B; --accent:#4BD3A4; --accent-ink:#06261C;
+  --hero:#123B31; --hero-fg:#EFFAF5; --hero-muted:#9CC8B8;
+  --gold:#E3B341; --up:#4BD3A4; --down:#FF7A70; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0C1110; --surface:#151C1A; --surface-2:#1F2825; --line:#29342F;
+  --fg:#E8F0EC; --muted:#8FA39B; --accent:#4BD3A4; --accent-ink:#06261C;
+  --hero:#123B31; --hero-fg:#EFFAF5; --hero-muted:#9CC8B8;
+  --gold:#E3B341; --up:#4BD3A4; --down:#FF7A70; color-scheme:dark }
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;overscroll-behavior-y:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.app{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+header.top{position:sticky;top:0;z-index:20;background:var(--bg);
+  padding:max(12px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left));
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand h1{font-family:var(--f-display);font-size:22px;margin:0;letter-spacing:-.01em}
+.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--up)}
+.dot.off{background:var(--gold)}
+.icon-btn{width:38px;height:38px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center}
+.icon-btn svg{width:18px;height:18px}
+.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+main{flex:1;padding:4px max(16px,env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+[hidden]{display:none!important}
+section{display:flex;flex-direction:column;gap:12px}
+h2{font-size:13px;font-weight:600;color:var(--muted);margin:6px 2px 0;display:flex;justify-content:space-between;align-items:center}
+.link{color:var(--accent);font-weight:600;font-size:13px}
+
+/* بطاقة المبلغ */
+.hero{background:var(--hero);color:var(--hero-fg);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.hero-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cur-pick{display:flex;align-items:center;gap:10px;text-align:right}
+.flag{font-size:30px;line-height:1;width:36px;text-align:center;flex-shrink:0}
+.badge-code{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--surface-2);color:var(--gold);font:700 11px var(--f-display);flex-shrink:0}
+.hero .badge-code{background:rgba(255,255,255,.12)}
+.code{font:700 17px var(--f-display);letter-spacing:.04em}
+.hero .sub{font-size:12px;color:var(--hero-muted)}
+.amount{font:600 34px/1.1 var(--f-display);text-align:left;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.expr{font-size:12px;color:var(--hero-muted);text-align:left;min-height:18px}
+.chips{display:flex;gap:8px;align-items:center;padding-top:10px;border-top:1px solid rgba(255,255,255,.14)}
+.chip-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.chip-scroll::-webkit-scrollbar{display:none}
+.chip{background:rgba(255,255,255,.12);border-radius:10px;padding:4px 12px;font-weight:600;font-size:13px;flex-shrink:0}
+.chip.solid{background:var(--hero-fg);color:var(--hero)}
+
+/* لوحة المفاتيح */
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;direction:ltr}
+.pad[hidden]{display:none}
+.key{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 0;font:600 19px var(--f-display);transition:transform .08s}
+.key:active{transform:scale(.94)}
+.key.op{color:var(--accent);background:var(--surface-2)}
+.key.clr{color:var(--down)}
+.key.eq{background:var(--accent);color:var(--accent-ink);border-color:transparent;grid-row:span 2}
+.key.zero{grid-column:span 2}
+
+/* القوائم */
+.list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.row{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid var(--line);min-height:62px}
+.row:first-child{border-top:0}
+.row .meta{flex:1;min-width:0}
+.row .name{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .val{text-align:left;flex-shrink:0}
+.big{font:600 18px var(--f-display)}
+.small{font-size:11px;color:var(--muted)}
+.chg{font-size:11px;font-weight:600;padding:1px 6px;border-radius:6px;display:inline-block}
+.chg.up{color:var(--up);background:color-mix(in srgb,var(--up) 14%,transparent)}
+.chg.down{color:var(--down);background:color-mix(in srgb,var(--down) 14%,transparent)}
+.chg.flat{color:var(--muted);background:var(--surface-2)}
+.x{width:28px;height:28px;border-radius:50%;color:var(--muted);display:grid;place-items:center;flex-shrink:0}
+.x svg{width:14px;height:14px}
+.star{color:var(--line);flex-shrink:0}
+.star.on{color:var(--gold)}
+.star svg{width:18px;height:18px}
+
+.search{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-size:15px}
+.search:focus{outline:none;border-color:var(--accent)}
+.seg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{padding:6px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:13px;font-weight:600;flex-shrink:0;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:12px}
+.pair{display:flex;gap:8px;align-items:center}
+.pair select{flex:1;min-width:0;background:var(--surface-2);border:0;border-radius:12px;padding:10px;font-weight:600;font-size:14px}
+.swap{width:40px;height:40px;border-radius:12px;background:var(--surface-2);color:var(--accent);display:grid;place-items:center;flex-shrink:0}
+.swap svg{width:18px;height:18px}
+.chart-wrap{position:relative;height:210px;touch-action:pan-y}
+canvas{width:100%;height:100%;display:block}
+.chart-msg{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats div{background:var(--surface-2);border-radius:12px;padding:8px 4px}
+.note{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
+
+.gold-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.gold-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gold-grid .g{background:var(--surface-2);border-radius:14px;padding:10px 12px}
+.karat{font:700 13px var(--f-display);color:var(--gold)}
+.field{display:flex;gap:8px}
+.field input,.field select{flex:1;min-width:0;background:var(--surface-2);border:0;border-radius:12px;padding:10px;font-size:15px;font-weight:600}
+.result{font:700 24px var(--f-display);color:var(--gold)}
+
+.travel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.travel-grid div{background:var(--surface-2);border-radius:12px;padding:9px 10px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:30;background:color-mix(in srgb,var(--surface) 88%,transparent);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))}
+nav.tabs .in{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;font-size:11px;font-weight:600;color:var(--muted)}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button[aria-current="page"]{color:var(--accent)}
+
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet[hidden]{display:none}
+.sheet .panel{background:var(--bg);width:100%;max-width:480px;height:82%;border-radius:22px 22px 0 0;display:flex;flex-direction:column;gap:10px;
+  padding:12px max(16px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(16px,env(safe-area-inset-left));animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(30px);opacity:.5}}
+.grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto}
+.sheet .scroll{flex:1;overflow-y:auto}
+.toast{position:fixed;top:calc(env(safe-area-inset-top) + 14px);left:50%;transform:translate(-50%,-10px);background:var(--fg);color:var(--bg);
+  padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:60;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <h1>نبض العملات</h1>
+      <div class="status"><span id="dot" class="dot"></span><span id="status">أسعار محفوظة</span></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="refresh" aria-label="تحديث الأسعار"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg></button>
+      <button class="icon-btn" id="theme" aria-label="تبديل المظهر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- المحوّل -->
+    <section id="tab-convert">
+      <div class="hero">
+        <div class="hero-row">
+          <button class="cur-pick" id="basePick" aria-label="تغيير العملة الأساسية">
+            <span id="baseFlag"></span>
+            <span><span class="code" id="baseCode">USD</span><br><span class="sub" id="baseName"></span></span>
+          </button>
+          <div style="flex:1;min-width:0">
+            <div class="expr num" id="expr"></div>
+            <div class="amount num" id="amount">100</div>
+          </div>
+        </div>
+        <div class="chips"><div class="chip-scroll">
+          <button class="chip num" data-q="1">1</button>
+          <button class="chip num" data-q="10">10</button>
+          <button class="chip num" data-q="100">100</button>
+          <button class="chip num" data-q="500">500</button>
+          <button class="chip num" data-q="1000">1,000</button></div>
+          <button class="chip solid" id="padToggle">إخفاء</button>
+        </div>
+      </div>
+
+      <div class="pad" id="pad">
+        <button class="key clr" data-k="C">C</button>
+        <button class="key op" data-k="B" aria-label="حذف">⌫</button>
+        <button class="key op" data-k="/">÷</button>
+        <button class="key op" data-k="*">×</button>
+        <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
+        <button class="key op" data-k="-">−</button>
+        <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
+        <button class="key op" data-k="+">+</button>
+        <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
+        <button class="key eq" data-k="=">=</button>
+        <button class="key zero" data-k="0">0</button><button class="key" data-k=".">.</button>
+      </div>
+
+      <h2><span>التحويل إلى</span>
+        <span style="display:flex;gap:14px"><button class="link" id="shareBtn">مشاركة</button><button class="link" id="addBtn">+ إضافة عملة</button></span></h2>
+      <div class="list" id="convList"></div>
+      <p class="note">اضغط على المبلغ لنسخه، وعلى العلم لجعل العملة أساسية.</p>
+    </section>
+
+    <!-- الأسعار -->
+    <section id="tab-rates" hidden>
+      <input class="search" id="rateSearch" type="search" placeholder="ابحث: ريال، يورو، EUR، تركيا…" autocomplete="off">
+      <div class="seg" id="rateFilter">
+        <button data-f="all" aria-pressed="true">الكل</button>
+        <button data-f="arab" aria-pressed="false">عربية</button>
+        <button data-f="world" aria-pressed="false">عالمية</button>
+        <button data-f="metal" aria-pressed="false">معادن ورقمية</button>
+        <button data-f="fav" aria-pressed="false">المفضلة</button>
+      </div>
+      <h2><span id="ratesTitle">سعر الوحدة مقابل 1 USD</span><span class="small">التغيّر خلال يوم</span></h2>
+      <div class="list" id="rateList"></div>
+    </section>
+
+    <!-- الرسم البياني -->
+    <section id="tab-chart" hidden>
+      <div class="card">
+        <div class="pair">
+          <select id="chFrom" aria-label="من"></select>
+          <button class="swap" id="chSwap" aria-label="عكس"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg></button>
+          <select id="chTo" aria-label="إلى"></select>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px;flex-wrap:wrap">
+          <div>
+            <div class="small" id="chLabel">USD / SAR</div>
+            <div style="display:flex;align-items:baseline;gap:8px"><span class="big num" id="chRate" style="font-size:28px">—</span><span class="chg flat num" id="chChg">—</span></div>
+            <div class="small" id="chDate">&nbsp;</div>
+          </div>
+          <div class="seg" id="chRange">
+            <button data-r="7" aria-pressed="true">أسبوع</button>
+            <button data-r="30" aria-pressed="false">شهر</button>
+            <button data-r="90" aria-pressed="false">3 أشهر</button>
+            <button data-r="365" aria-pressed="false">سنة</button>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="chart"></canvas><div class="chart-msg" id="chMsg">جارٍ تحميل البيانات التاريخية…</div></div>
+        <div class="stats">
+          <div><div class="small">الأعلى</div><div class="num" id="chHi" style="font-weight:700;color:var(--up)">—</div></div>
+          <div><div class="small">الأدنى</div><div class="num" id="chLo" style="font-weight:700;color:var(--down)">—</div></div>
+          <div><div class="small">المتوسط</div><div class="num" id="chAvg" style="font-weight:700">—</div></div>
+        </div>
+        <p class="note">بيانات تاريخية حقيقية بإغلاق يومي. مرّر إصبعك على الرسم لرؤية سعر كل يوم.</p>
+      </div>
+    </section>
+
+    <!-- الذهب -->
+    <section id="tab-gold" hidden>
+      <div class="card">
+        <div class="gold-head">
+          <strong style="font-family:var(--f-display);font-size:17px">سعر غرام الذهب</strong>
+          <select id="goldCur" class="search" style="width:auto;padding:6px 10px;font-size:13px" aria-label="العملة"></select>
+        </div>
+        <div class="gold-grid" id="goldGrid"></div>
+        <div class="small" id="goldOz"></div>
+      </div>
+      <div class="card">
+        <strong>حاسبة قيمة المصاغ</strong>
+        <div class="field">
+          <input id="gW" type="text" inputmode="decimal" value="10" aria-label="الوزن بالغرام" class="num">
+          <select id="gK" aria-label="العيار"><option value="24">عيار 24</option><option value="22">عيار 22</option><option value="21" selected>عيار 21</option><option value="18">عيار 18</option><option value="14">عيار 14</option></select>
+        </div>
+        <div class="result num" id="gRes">—</div>
+        <p class="note">السعر المعروض هو سعر السوق العالمي للمعدن الخام، ولا يشمل المصنعية أو هامش محل الصاغة.</p>
+      </div>
+    </section>
+
+    <!-- السفر -->
+    <section id="tab-travel" hidden>
+      <div class="card">
+        <strong>جدول المسافر</strong>
+        <div class="pair">
+          <select id="tFrom" aria-label="من"></select>
+          <button class="swap" id="tSwap" aria-label="عكس"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg></button>
+          <select id="tTo" aria-label="إلى"></select>
+        </div>
+        <div class="travel-grid" id="tGrid"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between"><strong>عمولة البطاقة في الخارج</strong><span class="num" id="feeLbl" style="font-weight:700;color:var(--gold)">2.5%</span></div>
+        <input type="range" id="fee" min="0" max="5" step="0.25" value="2.5" aria-label="نسبة العمولة">
+        <p class="note">معظم البنوك تضيف بين 1.5% و3% على كل دفعة بعملة أجنبية. السطر الثاني في كل خانة يبيّن المبلغ الذي سيُخصم فعلاً من حسابك.</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabs"><div class="in">
+    <button data-tab="convert" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg>المحوّل</button>
+    <button data-tab="rates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>الأسعار</button>
+    <button data-tab="chart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8M15 7h5v5"/></svg>الرسم</button>
+    <button data-tab="gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 19h8l-1.5-5h-5zM13 19h8l-1.5-5h-5zM8 12h8l-1.5-5h-5z"/></svg>الذهب</button>
+    <button data-tab="travel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15 3 13l1-2 7 1 4-6h2l-2 7 4 1 1-2h2l-1 4 1 4h-2l-1-2-4 1 2 7h-2l-4-6Z"/></svg>السفر</button>
+  </div></nav>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="grab"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong id="sheetTitle">اختر العملة</strong>
+      <button class="x" id="sheetClose" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <input class="search" id="sheetSearch" type="search" placeholder="ابحث عن عملة أو دولة…" autocomplete="off">
+    <div class="scroll"><div class="list" id="sheetList"></div></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+// ===== بيانات العملات =====
+// [الرمز, الاسم, العلم أو null, الفئة, كلمات بحث إضافية]
+const CUR = [
+ ['USD','دولار أمريكي','🇺🇸','world','امريكا الولايات'],['EUR','يورو','🇪🇺','world','اوروبا المانيا فرنسا'],
+ ['SAR','ريال سعودي','🇸🇦','arab','السعودية'],['AED','درهم إماراتي','🇦🇪','arab','الامارات دبي'],
+ ['KWD','دينار كويتي','🇰🇼','arab','الكويت'],['QAR','ريال قطري','🇶🇦','arab','قطر'],
+ ['BHD','دينار بحريني','🇧🇭','arab','البحرين'],['OMR','ريال عماني','🇴🇲','arab','عمان'],
+ ['JOD','دينار أردني','🇯🇴','arab','الاردن'],['EGP','جنيه مصري','🇪🇬','arab','مصر'],
+ ['LBP','ليرة لبنانية','🇱🇧','arab','لبنان'],['SYP','ليرة سورية','🇸🇾','arab','سوريا'],
+ ['IQD','دينار عراقي','🇮🇶','arab','العراق'],['ILS','شيكل','🇵🇸','arab','فلسطين'],
+ ['MAD','درهم مغربي','🇲🇦','arab','المغرب'],['DZD','دينار جزائري','🇩🇿','arab','الجزائر'],
+ ['TND','دينار تونسي','🇹🇳','arab','تونس'],['LYD','دينار ليبي','🇱🇾','arab','ليبيا'],
+ ['SDG','جنيه سوداني','🇸🇩','arab','السودان'],['YER','ريال يمني','🇾🇪','arab','اليمن'],
+ ['MRU','أوقية موريتانية','🇲🇷','arab','موريتانيا'],['SOS','شلن صومالي','🇸🇴','arab','الصومال'],
+ ['DJF','فرنك جيبوتي','🇩🇯','arab','جيبوتي'],['KMF','فرنك قمري','🇰🇲','arab','جزر القمر'],
+ ['GBP','جنيه إسترليني','🇬🇧','world','بريطانيا انجلترا'],['CHF','فرنك سويسري','🇨🇭','world','سويسرا'],
+ ['TRY','ليرة تركية','🇹🇷','world','تركيا'],['JPY','ين ياباني','🇯🇵','world','اليابان'],
+ ['CNY','يوان صيني','🇨🇳','world','الصين'],['CAD','دولار كندي','🇨🇦','world','كندا'],
+ ['AUD','دولار أسترالي','🇦🇺','world','استراليا'],['INR','روبية هندية','🇮🇳','world','الهند'],
+ ['PKR','روبية باكستانية','🇵🇰','world','باكستان'],['RUB','روبل روسي','🇷🇺','world','روسيا'],
+ ['SEK','كرونة سويدية','🇸🇪','world','السويد'],['NOK','كرونة نرويجية','🇳🇴','world','النرويج'],
+ ['DKK','كرونة دنماركية','🇩🇰','world','الدنمارك'],['PLN','زلوتي بولندي','🇵🇱','world','بولندا'],
+ ['CZK','كرونة تشيكية','🇨🇿','world','التشيك'],['HUF','فورنت مجري','🇭🇺','world','المجر هنغاريا'],
+ ['RON','ليو روماني','🇷🇴','world','رومانيا'],['KRW','وون كوري','🇰🇷','world','كوريا'],
+ ['IRR','ريال إيراني','🇮🇷','world','ايران'],['AFN','أفغاني','🇦🇫','world','افغانستان'],
+ ['BRL','ريال برازيلي','🇧🇷','world','البرازيل'],['MXN','بيزو مكسيكي','🇲🇽','world','المكسيك'],
+ ['ZAR','راند جنوب أفريقي','🇿🇦','world','جنوب افريقيا'],['SGD','دولار سنغافوري','🇸🇬','world','سنغافورة'],
+ ['MYR','رينغيت ماليزي','🇲🇾','world','ماليزيا'],['IDR','روبية إندونيسية','🇮🇩','world','اندونيسيا'],
+ ['XAU','ذهب (أونصة)',null,'metal','ذهب gold'],['XAG','فضة (أونصة)',null,'metal','فضة silver'],
+ ['BTC','بيتكوين',null,'metal','bitcoin كريبتو'],['ETH','إيثيريوم',null,'metal','ethereum كريبتو'],
+ ['USDT','تيثر',null,'metal','tether كريبتو']
+];
+const META = Object.fromEntries(CUR.map(c=>[c[0],{code:c[0],name:c[1],flag:c[2],grp:c[3],kw:c[4]}]));
+const CODES = CUR.map(c=>c[0]);
+
+// لقطة أسعار حقيقية مدمجة (28 أكتوبر 2026) تُستخدم أول مرة أو بلا إنترنت
+const SNAP_DATE='2026-10-28';
+const SNAP={"USD":1.0,"EUR":0.89912268,"GBP":0.75212496,"CHF":0.8298767,"TRY":49.825822,"SAR":3.75,"AED":3.6725,"KWD":0.31113203,"QAR":3.64,"BHD":0.376,"OMR":0.38473307,"JOD":0.709,"EGP":56.119611,"LBP":89823.737,"SYP":13000.598,"IQD":1519.1763,"MAD":9.8611696,"DZD":135.39198,"TND":2.9935759,"LYD":6.4363996,"SDG":600.15168,"YER":236.19061,"MRU":40.222585,"SOS":571.46712,"DJF":178.17329,"KMF":442.33936,"ILS":3.0858339,"JPY":157.82921,"CNY":6.6676388,"CAD":1.4064634,"AUD":1.4219191,"INR":95.140091,"PKR":277.15528,"RUB":80.490938,"SEK":9.9543518,"NOK":9.3320669,"DKK":6.7209028,"PLN":3.9573924,"CZK":21.872711,"HUF":329.91635,"RON":4.8108722,"KRW":1342.1552,"IRR":1856799.8,"AFN":64.479144,"BRL":5.3521854,"MXN":18.690963,"ZAR":16.667469,"SGD":1.2818442,"MYR":4.0826247,"IDR":18174.234,"XAU":0.0002477644,"XAG":0.018562053,"BTC":1.2371577e-05,"ETH":0.00042531673,"USDT":1.0014019};
+const SNAP_PREV={"USD":1.0,"EUR":0.89509869,"GBP":0.74953613,"CHF":0.82749109,"TRY":49.783929,"SAR":3.75,"AED":3.6725,"KWD":0.31080466,"QAR":3.64,"BHD":0.376,"OMR":0.38486883,"JOD":0.709,"EGP":56.27166,"LBP":90383.257,"SYP":13001.543,"IQD":1518.3322,"MAD":9.838719,"DZD":135.0916,"TND":2.9914621,"LYD":6.4263054,"SDG":600.21781,"YER":236.19848,"MRU":40.179175,"SOS":572.13465,"DJF":178.18312,"KMF":440.35969,"ILS":3.0756667,"JPY":157.60408,"CNY":6.6682247,"CAD":1.4012177,"AUD":1.4226485,"INR":95.225294,"PKR":277.01614,"RUB":80.795416,"SEK":9.9494055,"NOK":9.3116028,"DKK":6.6905005,"PLN":3.9416428,"CZK":21.794616,"HUF":328.65256,"RON":4.7849738,"KRW":1324.1633,"IRR":1816943.6,"AFN":64.956757,"BRL":5.3841629,"MXN":18.550062,"ZAR":16.625368,"SGD":1.280614,"MYR":4.0850444,"IDR":18137.693,"XAU":0.0002487443,"XAG":0.01862009,"BTC":1.2559017e-05,"ETH":0.00043279475,"USDT":1.0016109};
+
+// ===== تخزين آمن =====
+const store={get(k,d){try{const v=localStorage.getItem('nabd2_'+k);return v==null?d:JSON.parse(v)}catch(_){return d}},
+             set(k,v){try{localStorage.setItem('nabd2_'+k,JSON.stringify(v))}catch(_){}}};
+
+const S={
+  base:store.get('base','USD'),
+  expr:'100', amount:100, fresh:true,
+  pinned:store.get('pinned',['EUR','SAR','AED','EGP','TRY','LBP','XAU']),
+  favs:store.get('favs',['EUR','SAR','AED']),
+  padOpen:store.get('pad',true),
+  rates:store.get('rates',null)||{date:SNAP_DATE,r:SNAP,prev:SNAP_PREV},
+  live:false, filter:'all',
+  chFrom:store.get('chFrom','USD'), chTo:store.get('chTo','SAR'), chRange:7,
+  goldCur:store.get('goldCur','USD'),
+  tFrom:store.get('tFrom','EUR'), tTo:store.get('tTo','SAR'),
+  fee:store.get('fee',2.5)
+};
+if(!META[S.base]) S.base='USD';
+
+const $=id=>document.getElementById(id);
+
+// ===== جلب الأسعار (بدون مفتاح API) =====
+function srcUrls(date){ // date: 'latest' أو 'YYYY-MM-DD'
+  return [
+    `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/usd.min.json`,
+    `https://${date}.currency-api.pages.dev/v1/currencies/usd.min.json`
+  ];
+}
+async function fetchDay(date){
+  for(const u of srcUrls(date)){
+    try{
+      const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),8000);
+      const res=await fetch(u,{signal:ctl.signal,cache:date==='latest'?'no-store':'default'}); clearTimeout(t);
+      if(!res.ok) continue;
+      const j=await res.json(); if(!j||!j.usd) continue;
+      const r={}; CODES.forEach(c=>{const v=j.usd[c.toLowerCase()]; if(v>0) r[c]=v});
+      return {date:j.date||date,r};
+    }catch(_){}
+  }
+  return null;
+}
+function shiftDate(iso,days){const d=new Date(iso+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+days);return d.toISOString().slice(0,10)}
+
+async function refresh(manual){
+  const btn=$('refresh'); btn.classList.add('spin');
+  const today=await fetchDay('latest');
+  if(today){
+    const prevDay=getHist(shiftDate(today.date,-1))||await fetchDay(shiftDate(today.date,-1));
+    if(prevDay) putHist(prevDay.date,prevDay.r);
+    putHist(today.date,today.r);
+    S.rates={date:today.date,r:today.r,prev:prevDay?prevDay.r:S.rates.prev,at:Date.now()};
+    store.set('rates',S.rates); S.live=true;
+    if(manual) toast('تم تحديث الأسعار');
+  }else{
+    S.live=false; if(manual) toast('لا يوجد اتصال، نعرض آخر أسعار محفوظة');
+  }
+  btn.classList.remove('spin');
+  renderAll();
+}
+
+// ===== أدوات =====
+const rate=c=>S.rates.r[c]||SNAP[c];
+const conv=(a,f,t)=>a/rate(f)*rate(t);
+function fmt(n,maxD){
+  if(!isFinite(n)) return '0';
+  const a=Math.abs(n);
+  if(maxD==null) maxD = a>=1000?2 : a>=1?2 : a>=0.01?4 : 8;
+  if(a>0 && a<1 && maxD<4) maxD=4;
+  return new Intl.NumberFormat('en-US',{maximumFractionDigits:maxD}).format(n);
+}
+function dayChange(c,base){ // نسبة تغيّر سعر العملة c مقابل base خلال يوم
+  const p=S.rates.prev; if(!p||!p[c]||!p[base]) return null;
+  const now=rate(c)/rate(base), before=p[c]/p[base];
+  return (now/before-1)*100;
+}
+function chgBadge(v,invert){
+  if(v==null) return '<span class="chg flat num">—</span>';
+  if(invert) v=-v;
+  const cls=Math.abs(v)<0.005?'flat':v>0?'up':'down';
+  return `<span class="chg ${cls} num">${v>0?'+':''}${v.toFixed(2)}%</span>`;
+}
+function flagHTML(c){const m=META[c];return m.flag?`<span class="flag" aria-hidden="true">${m.flag}</span>`:`<span class="badge-code">${c==='USDT'?'₮':c.slice(0,3)}</span>`}
+const norm=s=>s.toLowerCase().replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/[ًٌٍَُِّْ]/g,'');
+const matches=(c,q)=>{if(!q) return true; const m=META[c]; return norm(c+' '+m.name+' '+m.kw).includes(norm(q))};
+function arDate(iso){try{return new Date(iso+'T12:00:00Z').toLocaleDateString('ar',{day:'numeric',month:'long',year:'numeric',numberingSystem:'latn'})}catch(_){return iso}}
+let tT; function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2000)}
+async function copy(text){
+  try{await navigator.clipboard.writeText(text);toast('تم النسخ: '+text)}
+  catch(_){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('تم النسخ: '+text)}catch(e){}ta.remove()}
+}
+
+// ===== حاسبة آمنة (بدون eval) =====
+function evaluate(expr){
+  const tk=expr.match(/\d*\.?\d+|\d+\.|[+\-*/]/g); if(!tk) return 0;
+  let i=0;
+  const num=()=>{let t=tk[i++]; if(t==='-') return -num(); if(t==='+') return num(); const v=parseFloat(t); if(isNaN(v)) throw 0; return v};
+  const term=()=>{let v=num(); while(tk[i]==='*'||tk[i]==='/'){const o=tk[i++]; const r=num(); v=o==='*'?v*r:v/r} return v};
+  let v=term(); while(tk[i]==='+'||tk[i]==='-'){const o=tk[i++]; const r=term(); v=o==='+'?v+r:v-r}
+  return v;
+}
+function press(k){
+  const ops='+-*/'; let e=S.expr;
+  if(S.fresh && /[0-9.]/.test(k)){e='0';$('expr').textContent=''}
+  if(k!=='=') S.fresh=false;
+  if(k==='C'){e='0';$('expr').textContent=''}
+  else if(k==='B'){e=e.length>1?e.slice(0,-1):'0'}
+  else if(k==='='){
+    try{const v=evaluate(e.replace(/[+\-*/.]+$/,'')); if(isFinite(v)&&v>=0){ if(/[+\-*/]/.test(e.slice(1))) $('expr').textContent=pretty(e)+' ='; e=String(+v.toFixed(6)); S.fresh=true}}catch(_){toast('عملية غير صالحة')}
+  }else if(ops.includes(k)){ if(ops.includes(e.slice(-1))) e=e.slice(0,-1); e+=k }
+  else if(k==='.'){ const last=e.split(/[+\-*/]/).pop(); if(!last.includes('.')) e+= last===''?'0.':'.' }
+  else { const last=e.split(/[+\-*/]/).pop(); if(last==='0') e=e.slice(0,-1)+k; else if(e.length<18) e+=k }
+  S.expr=e;
+  try{const v=evaluate(e.replace(/[+\-*/.]+$/,'')); if(isFinite(v)&&v>=0){ S.amount=v; if(/[+\-*/]/.test(e.slice(1))) $('expr').textContent='= '+fmt(v) }}catch(_){}
+  renderAmount(); renderConv();
+}
+const pretty=e=>e.replace(/\*/g,'×').replace(/\//g,'÷').replace(/-/g,'−').replace(/(\d+)(\.\d*)?/g,(m,a,b)=>Number(a).toLocaleString('en-US')+(b||''));
+
+// ===== العرض =====
+function renderStatus(){
+  $('dot').className='dot'+(S.live?'':' off');
+  $('status').textContent=(S.live?'مباشر · ':'محفوظ · ')+'أسعار '+arDate(S.rates.date);
+}
+function renderAmount(){
+  const m=META[S.base];
+  $('baseFlag').outerHTML=`<span id="baseFlag">${flagHTML(S.base)}</span>`;
+  $('baseCode').textContent=S.base; $('baseName').textContent=m.name;
+  $('amount').textContent=pretty(S.expr);
+}
+function renderConv(){
+  const L=$('convList'); const rows=S.pinned.filter(c=>c!==S.base);
+  if(!rows.length){L.innerHTML='<div class="row"><span class="small">أضف عملة لبدء التحويل</span></div>';return}
+  L.innerHTML=rows.map(c=>{
+    const v=conv(S.amount,S.base,c), u=conv(1,S.base,c);
+    return `<div class="row">
+      <button data-base="${c}" aria-label="اجعل ${c} العملة الأساسية">${flagHTML(c)}</button>
+      <div class="meta"><div><strong>${c}</strong> <span class="small">${META[c].name}</span></div>
+        <div class="small num" style="text-align:right">1 ${S.base} = ${fmt(u)} ${c}</div></div>
+      <button class="val" data-copy="${+v.toFixed(c==='BTC'||c==='ETH'||c==='XAU'?6:2)}"><div class="big num">${fmt(v)}</div>${chgBadge(dayChange(c,S.base))}</button>
+      <button class="x" data-rm="${c}" aria-label="إزالة ${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>`}).join('');
+}
+function renderRates(){
+  const q=$('rateSearch').value.trim();
+  $('ratesTitle').textContent=`سعر 1 ${S.base} بالعملات الأخرى`;
+  const list=CODES.filter(c=>c!==S.base && matches(c,q) &&
+    (S.filter==='all'||(S.filter==='fav'?S.favs.includes(c):META[c].grp===S.filter)));
+  $('rateList').innerHTML=list.length?list.map(c=>{
+    const isMetal=META[c].grp==='metal';
+    // للمعادن والعملات الرقمية نعرض سعرها هي بالعملة الأساسية (أوضح من 0.0002 أونصة)
+    const v=isMetal?conv(1,c,S.base):conv(1,S.base,c);
+    const label=isMetal?`1 ${c} = ${fmt(v)} ${S.base}`:'';
+    return `<div class="row">
+      <button class="star ${S.favs.includes(c)?'on':''}" data-fav="${c}" aria-label="مفضلة"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></button>
+      ${flagHTML(c)}
+      <button class="meta" data-chart="${c}" style="text-align:right"><div><strong>${c}</strong></div><div class="name">${META[c].name}</div></button>
+      <button class="val" data-chart="${c}"><div class="big num">${fmt(v)}</div>${chgBadge(dayChange(c,S.base),isMetal)}</button>
+    </div>`}).join(''):'<div class="row"><span class="small">لا توجد نتائج</span></div>';
+}
+function fillSelect(el,val,exclude){el.innerHTML=CODES.filter(c=>c!==exclude).map(c=>`<option value="${c}">${c} · ${META[c].name}</option>`).join('');el.value=val}
+function renderGold(){
+  const c=S.goldCur;
+  const ozUSD=1/rate('XAU'); const gUSD=ozUSD/31.1034768;
+  const g=k=>conv(gUSD*k/24,'USD',c);
+  $('goldGrid').innerHTML=[24,22,21,18].map(k=>`<div class="g"><div class="karat">عيار ${k}</div><div class="big num">${fmt(g(k),2)}</div><div class="small">${c} للغرام</div></div>`).join('');
+  const lira=conv(gUSD*7.98*22/24,'USD',c);
+  const silverG=conv(1/rate('XAG')/31.1034768,'USD',c);
+  $('goldOz').innerHTML=`الأونصة: <span class="num">${fmt(conv(ozUSD,'USD',c),2)}</span> ${c} · الليرة الإنجليزية (7.98غ عيار 22): <span class="num">${fmt(lira,2)}</span> · غرام الفضة: <span class="num">${fmt(silverG,2)}</span> · التغيّر اليومي ${chgBadge(dayChange('XAU',c),true)}`;
+  const w=parseFloat(($('gW').value||'').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(',','.'))||0;
+  $('gRes').textContent=fmt(g(+$('gK').value)*w,2)+' '+c;
+}
+function renderTravel(){
+  const f=S.tFrom,t=S.tTo,fee=S.fee; $('feeLbl').textContent=fee+'%';
+  $('tGrid').innerHTML=[1,5,10,20,50,100,200,500].map(a=>{const v=conv(a,f,t);return `<div><div class="small num" style="text-align:right">${a} ${f}</div><div class="big num" style="font-size:16px">${fmt(v,2)} ${t}</div><div class="small num">بالبطاقة: ${fmt(v*(1+fee/100),2)}</div></div>`}).join('');
+}
+function renderAll(){renderStatus();renderAmount();renderConv();renderRates();renderGold();renderTravel();if(!$('tab-chart').hidden) loadChart()}
+
+// ===== الرسم البياني ببيانات تاريخية حقيقية =====
+function getHist(d){return store.get('h_'+d,null)}
+function putHist(d,r){const o={};CODES.forEach(c=>{if(r[c]) o[c]=+r[c].toPrecision(8)});store.set('h_'+d,{date:d,r:o})}
+let chartPts=[], chartToken=0;
+async function loadChart(){
+  const tok=++chartToken, f=S.chFrom, t=S.chTo, days=S.chRange;
+  $('chLabel').textContent=`${f} / ${t}`;
+  $('chRate').textContent=fmt(conv(1,f,t));
+  const step=days<=7?1:days<=30?3:days<=90?7:30;
+  const end=S.rates.date, dates=[];
+  for(let d=days;d>0;d-=step) dates.push(shiftDate(end,-d));
+  dates.push(end);
+  const need=dates.filter(d=>!getHist(d));
+  if(need.length){$('chMsg').hidden=false;$('chMsg').textContent='جارٍ تحميل البيانات التاريخية…'}
+  await Promise.all(need.map(async d=>{const x=await fetchDay(d); if(x&&x.r.USD) putHist(d,x.r)}));
+  if(tok!==chartToken) return;
+  const pts=dates.map(d=>{if(d===end) return {d,v:conv(1,f,t)}; const h=getHist(d); return h&&h.r[f]&&h.r[t]?{d,v:h.r[t]/h.r[f]}:null}).filter(Boolean);
+  chartPts=pts;
+  if(pts.length<2){$('chMsg').hidden=false;$('chMsg').textContent='تعذّر تحميل البيانات التاريخية. تحقّق من الاتصال ثم أعد المحاولة.';clearChart();return}
+  $('chMsg').hidden=true;
+  const vs=pts.map(p=>p.v), hi=Math.max(...vs), lo=Math.min(...vs), avg=vs.reduce((a,b)=>a+b,0)/vs.length;
+  const ch=(vs[vs.length-1]/vs[0]-1)*100;
+  $('chHi').textContent=fmt(hi);$('chLo').textContent=fmt(lo);$('chAvg').textContent=fmt(avg);
+  const b=$('chChg'); b.outerHTML=chgBadge(ch).replace('class="chg','id="chChg" class="chg');
+  $('chDate').textContent='من '+arDate(pts[0].d)+' إلى '+arDate(pts[pts.length-1].d);
+  drawChart(-1);
+}
+function clearChart(){const c=$('chart'),x=c.getContext('2d');x.clearRect(0,0,c.width,c.height)}
+function drawChart(hover){
+  const pts=chartPts; if(pts.length<2) return;
+  const c=$('chart'), dpr=window.devicePixelRatio||1, W=c.clientWidth, H=c.clientHeight;
+  c.width=W*dpr; c.height=H*dpr; const x=c.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0);
+  const css=getComputedStyle(document.documentElement);
+  const vs=pts.map(p=>p.v), lo=Math.min(...vs), hi=Math.max(...vs), span=(hi-lo)||hi*0.001||1;
+  const up=vs[vs.length-1]>=vs[0], col=css.getPropertyValue(up?'--up':'--down').trim();
+  const pl=6,pr=6,pt=22,pb=16;
+  const XL=i=>pl+(i/(pts.length-1))*(W-pl-pr);
+  const Y=v=>pt+(1-(v-lo)/span)*(H-pt-pb);
+  x.strokeStyle=css.getPropertyValue('--line').trim(); x.lineWidth=1;
+  [0,.5,1].forEach(f=>{const y=pt+f*(H-pt-pb);x.beginPath();x.moveTo(pl,y);x.lineTo(W-pr,y);x.stroke()});
+  const g=x.createLinearGradient(0,pt,0,H); g.addColorStop(0,col+'40'); g.addColorStop(1,col+'00');
+  x.beginPath(); pts.forEach((p,i)=>i?x.lineTo(XL(i),Y(p.v)):x.moveTo(XL(i),Y(p.v)));
+  x.lineTo(XL(pts.length-1),H); x.lineTo(XL(0),H); x.closePath(); x.fillStyle=g; x.fill();
+  x.beginPath(); pts.forEach((p,i)=>i?x.lineTo(XL(i),Y(p.v)):x.moveTo(XL(i),Y(p.v)));
+  x.strokeStyle=col; x.lineWidth=2.5; x.lineJoin='round'; x.stroke();
+  const i=hover>=0?hover:pts.length-1, px=XL(i), py=Y(pts[i].v);
+  if(hover>=0){x.strokeStyle=css.getPropertyValue('--muted').trim();x.setLineDash([3,3]);x.beginPath();x.moveTo(px,pt-6);x.lineTo(px,H-pb);x.stroke();x.setLineDash([])}
+  x.beginPath(); x.arc(px,py,5,0,7); x.fillStyle=col; x.fill(); x.lineWidth=2; x.strokeStyle=css.getPropertyValue('--surface').trim(); x.stroke();
+  x.fillStyle=css.getPropertyValue('--fg').trim(); x.font='600 12px system-ui'; x.direction='ltr';
+  const label=fmt(pts[i].v)+'  ·  '+pts[i].d; const tw=x.measureText(label).width;
+  x.fillText(label,Math.min(Math.max(px-tw/2,2),W-tw-2),13);
+}
+function chartHover(ev){
+  if(chartPts.length<2) return; const c=$('chart'), r=c.getBoundingClientRect();
+  const cx=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+  const i=Math.round((cx-6)/(r.width-12)*(chartPts.length-1)); drawChart(Math.max(0,Math.min(chartPts.length-1,i)));
+}
+
+// ===== نافذة اختيار العملة =====
+let sheetMode='base';
+function openSheet(mode){sheetMode=mode;$('sheetTitle').textContent=mode==='base'?'العملة الأساسية':'إضافة عملة';$('sheetSearch').value='';renderSheet();$('sheet').hidden=false}
+function renderSheet(){
+  const q=$('sheetSearch').value.trim();
+  $('sheetList').innerHTML=CODES.filter(c=>matches(c,q)).map(c=>{
+    const on=sheetMode==='base'?c===S.base:S.pinned.includes(c);
+    return `<button class="row" data-pick="${c}" style="width:100%;text-align:right">${flagHTML(c)}<div class="meta"><strong>${c}</strong><div class="name">${META[c].name}</div></div>${on?'<span style="color:var(--accent);font-weight:700">✓</span>':''}</button>`}).join('');
+}
+function setBase(c){
+  if(c===S.base) return;
+  S.pinned=S.pinned.filter(x=>x!==c); if(!S.pinned.includes(S.base)) S.pinned.unshift(S.base);
+  S.amount=conv(S.amount,S.base,c); S.expr=String(+S.amount.toFixed(2)); S.fresh=true; $('expr').textContent='';
+  S.base=c; store.set('base',c); store.set('pinned',S.pinned); renderAll();
+}
+
+// ===== الأحداث =====
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  const d=b.dataset;
+  if(d.k) press(d.k);
+  else if(d.q){S.expr=d.q;S.amount=+d.q;S.fresh=true;$('expr').textContent='';renderAmount();renderConv()}
+  else if(d.base) setBase(d.base);
+  else if(d.copy) copy(d.copy);
+  else if(d.rm){S.pinned=S.pinned.filter(c=>c!==d.rm);store.set('pinned',S.pinned);renderConv()}
+  else if(d.fav){S.favs=S.favs.includes(d.fav)?S.favs.filter(c=>c!==d.fav):[...S.favs,d.fav];store.set('favs',S.favs);renderRates()}
+  else if(d.chart){S.chFrom=S.base;S.chTo=d.chart;$('chFrom').value=S.chFrom;$('chTo').value=S.chTo;tab('chart')}
+  else if(d.f){S.filter=d.f;[...$('rateFilter').children].forEach(x=>x.setAttribute('aria-pressed',x===b));renderRates()}
+  else if(d.r){S.chRange=+d.r;[...$('chRange').children].forEach(x=>x.setAttribute('aria-pressed',x===b));loadChart()}
+  else if(d.tab) tab(d.tab);
+  else if(d.pick){
+    if(sheetMode==='base'){setBase(d.pick);$('sheet').hidden=true}
+    else{ if(d.pick!==S.base){ S.pinned=S.pinned.includes(d.pick)?S.pinned.filter(c=>c!==d.pick):[...S.pinned,d.pick]; store.set('pinned',S.pinned); renderConv(); renderSheet() } }
+  }
+});
+function tab(name){
+  ['convert','rates','chart','gold','travel'].forEach(t=>$('tab-'+t).hidden=t!==name);
+  document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.tab===name) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current')});
+  window.scrollTo(0,0);
+  if(name==='chart') requestAnimationFrame(loadChart);
+}
+$('basePick').onclick=()=>openSheet('base');
+$('addBtn').onclick=()=>openSheet('add');
+$('sheetClose').onclick=()=>$('sheet').hidden=true;
+$('sheet').addEventListener('click',e=>{if(e.target.id==='sheet') $('sheet').hidden=true});
+$('sheetSearch').oninput=renderSheet;
+$('rateSearch').oninput=renderRates;
+$('padToggle').onclick=()=>{S.padOpen=!S.padOpen;store.set('pad',S.padOpen);applyPad()};
+function applyPad(){$('pad').hidden=!S.padOpen;$('padToggle').textContent=S.padOpen?'إخفاء':'الحاسبة'}
+$('refresh').onclick=()=>refresh(true);
+$('shareBtn').onclick=async()=>{
+  const lines=[`${pretty(S.expr)} ${S.base} =`].concat(S.pinned.filter(c=>c!==S.base).map(c=>`${fmt(conv(S.amount,S.base,c))} ${c} (${META[c].name})`));
+  const text=lines.join('\n')+`\nأسعار ${arDate(S.rates.date)}`;
+  if(navigator.share){try{await navigator.share({text});return}catch(e){if(e.name==='AbortError')return}}
+  copy(text);
+};
+$('chFrom').onchange=e=>{S.chFrom=e.target.value;store.set('chFrom',S.chFrom);loadChart()};
+$('chTo').onchange=e=>{S.chTo=e.target.value;store.set('chTo',S.chTo);loadChart()};
+$('chSwap').onclick=()=>{[S.chFrom,S.chTo]=[S.chTo,S.chFrom];$('chFrom').value=S.chFrom;$('chTo').value=S.chTo;loadChart()};
+const cv=$('chart');
+['mousemove','touchstart','touchmove'].forEach(ev=>cv.addEventListener(ev,chartHover,{passive:true}));
+['mouseleave','touchend'].forEach(ev=>cv.addEventListener(ev,()=>drawChart(-1)));
+$('goldCur').onchange=e=>{S.goldCur=e.target.value;store.set('goldCur',S.goldCur);renderGold()};
+$('gW').oninput=renderGold; $('gK').onchange=renderGold;
+$('tFrom').onchange=e=>{S.tFrom=e.target.value;store.set('tFrom',S.tFrom);renderTravel()};
+$('tTo').onchange=e=>{S.tTo=e.target.value;store.set('tTo',S.tTo);renderTravel()};
+$('tSwap').onclick=()=>{[S.tFrom,S.tTo]=[S.tTo,S.tFrom];$('tFrom').value=S.tFrom;$('tTo').value=S.tTo;renderTravel()};
+$('fee').oninput=e=>{S.fee=+e.target.value;store.set('fee',S.fee);renderTravel()};
+// لوحة مفاتيح الكمبيوتر
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,select')||$('tab-convert').hidden) return;
+  const m={Enter:'=',Backspace:'B',Escape:'C',Delete:'C',',':'.'}; const k=m[e.key]||e.key;
+  if(/^[0-9.+\-*/=CB]$/.test(k)){e.preventDefault();press(k)}
+});
+// المظهر
+function applyTheme(t){if(t) document.documentElement.setAttribute('data-theme',t); else document.documentElement.removeAttribute('data-theme')}
+$('theme').onclick=()=>{
+  const dark=document.documentElement.getAttribute('data-theme')==='dark'||(!document.documentElement.hasAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+  const t=dark?'light':'dark'; applyTheme(t); store.set('theme',t); if(!$('tab-chart').hidden) drawChart(-1);
+};
+window.addEventListener('resize',()=>{if(!$('tab-chart').hidden) drawChart(-1)});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden && Date.now()-(S.rates.at||0)>30*60e3) refresh(false)});
+
+// ===== التشغيل =====
+applyTheme(store.get('theme',null));
+fillSelect($('chFrom'),S.chFrom); fillSelect($('chTo'),S.chTo);
+fillSelect($('goldCur'),S.goldCur,'XAU');
+fillSelect($('tFrom'),S.tFrom); fillSelect($('tTo'),S.tTo);
+$('fee').value=S.fee; applyPad(); renderAll(); refresh(false);
+if('serviceWorker' in navigator && location.protocol==='https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
